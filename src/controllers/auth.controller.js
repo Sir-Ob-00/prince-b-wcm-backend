@@ -1,7 +1,7 @@
 import { pool } from '../db/pool.js';
 import { verifyPassword, hashPassword } from '../models/staff.js';
 import { csrfToken } from '../middleware/auth.js';
-import { config } from '../config/index.js';
+import { sessionCookieAttributes } from '../config/index.js';
 import { writeAudit } from '../models/audit.js';
 // Use a real dummy hash to keep unknown-account attempts on the password-check path.
 const dummyHash = await hashPassword('unusable-dummy-account-password');
@@ -27,6 +27,6 @@ export async function signOut(req, res) {
   const actor=req.session.staffId?(await pool.query('SELECT id,email FROM staff WHERE id=$1',[req.session.staffId])).rows[0]:null;
   if(actor)await writeAudit({actor,action:'auth.signed_out',targetType:'auth'});
   await new Promise((resolve,reject) => req.session.destroy(error => error ? reject(error) : resolve()));
-  res.clearCookie('wcm.sid', { path:'/', httpOnly:true, sameSite:'strict', secure:config.production });
+  res.clearCookie('wcm.sid', sessionCookieAttributes);
   res.status(204).end();
 }
