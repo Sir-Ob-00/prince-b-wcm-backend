@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { requireStaff,requireCsrf,requireSuperAdmin } from '../middleware/auth.js';
+import { listUsers,getUser,changeUser } from '../models/users.js';
+import { z } from 'zod';
+export const usersRouter=Router();
+usersRouter.use(requireStaff,requireSuperAdmin,requireCsrf);
+usersRouter.param('id',(req,res,next,id)=>{const result=z.uuid().safeParse(id);if(!result.success)return res.status(400).json({error:'Invalid user ID.'});req.params.id=id.toLowerCase();next();});
+usersRouter.get('/',async(req,res)=>res.json(await listUsers()));
+usersRouter.get('/:id',async(req,res)=>{const user=await getUser(req.params.id);user?res.json(user):res.status(404).json({error:'User not found.'});});
+usersRouter.post('/',async(req,res)=>res.status(201).json(await changeUser(req.staff,'create',null,req.body)));
+usersRouter.patch('/:id',async(req,res)=>{const user=await changeUser(req.staff,'update',req.params.id,req.body);user?res.json(user):res.status(404).json({error:'User not found.'});});
+usersRouter.delete('/:id',async(req,res)=>{const user=await changeUser(req.staff,'delete',req.params.id);user?res.status(204).end():res.status(404).json({error:'User not found.'});});

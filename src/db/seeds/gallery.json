@@ -1,0 +1,62 @@
+[
+  {
+    "id": "gallery-1",
+    "title": "Residential Properties",
+    "caption": "Modern 3-Bedroom Residence",
+    "category": "",
+    "image_url": "https://jaydeladem.github.io/prince-b-realty-consult/images/a11.jpeg",
+    "alt": "Modern residential house",
+    "sort_order": 0,
+    "publication_status": "published"
+  },
+  {
+    "id": "gallery-2",
+    "title": "Land and Properties",
+    "caption": "Land Inspection and Assessment",
+    "category": "",
+    "image_url": "https://jaydeladem.github.io/prince-b-realty-consult/images/a10.jpeg",
+    "alt": "Open land and green landscape",
+    "sort_order": 1,
+    "publication_status": "published"
+  },
+  {
+    "id": "gallery-3",
+    "title": "Property Transactions",
+    "caption": "Real Estate Client Services",
+    "category": "",
+    "image_url": "https://jaydeladem.github.io/prince-b-realty-consult/images/property8.avif",
+    "alt": "Real estate property presentation",
+    "sort_order": 2,
+    "publication_status": "published"
+  },
+  {
+    "id": "gallery-4",
+    "title": "Our Office",
+    "caption": "Professional Working Environment",
+    "category": "",
+    "image_url": "https://jaydeladem.github.io/prince-b-realty-consult/images/office.avif",
+    "alt": "Professional office interior",
+    "sort_order": 3,
+    "publication_status": "published"
+  },
+  {
+    "id": "gallery-5",
+    "title": "Site Activities",
+    "caption": "Construction Progress Monitoring",
+    "category": "",
+    "image_url": "https://jaydeladem.github.io/prince-b-realty-consult/images/a12.jpeg",
+    "alt": "Construction site activity",
+    "sort_order": 4,
+    "publication_status": "published"
+  },
+  {
+    "id": "gallery-6",
+    "title": "Property Inspection",
+    "caption": "Land and Site Assessment",
+    "category": "",
+    "image_url": "https://jaydeladem.github.io/prince-b-realty-consult/images/a1.jpeg",
+    "alt": "Land and property landscape",
+    "sort_order": 5,
+    "publication_status": "published"
+  }
+]

@@ -1,0 +1,111 @@
+[
+  {
+    "id": "house-1",
+    "title": "Modern 3-Bedroom House",
+    "location": "East Legon",
+    "display_location": "East Legon, Accra, Ghana",
+    "property_type": "house",
+    "bedrooms": 3,
+    "price_ghs": 850000,
+    "price": "GHS 850,000",
+    "status": "active",
+    "description": "A beautiful modern three-bedroom house with spacious rooms, a fitted kitchen and quality finishing. It offers a comfortable living environment and convenient access to essential facilities.",
+    "features": [
+      "3 Bedrooms",
+      "Spacious living room",
+      "Fitted kitchen",
+      "Parking space"
+    ],
+    "images": [
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/hse2.avif",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/bed4.avif",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/bed2.avif",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/bed1.webp"
+    ],
+    "bathrooms": null,
+    "area_sqft": 1600,
+    "plot_dimensions": null,
+    "slug": "house-1",
+    "image_alts": [
+      "Modern three-bedroom house",
+      "Modern 3-Bedroom House image 2",
+      "Modern 3-Bedroom House image 3",
+      "Modern 3-Bedroom House image 4"
+    ],
+    "featured": true,
+    "sort_order": 0,
+    "publication_status": "published"
+  },
+  {
+    "id": "apartment-1",
+    "title": "2-Bedroom Apartment",
+    "location": "Spintex",
+    "display_location": "Spintex, Accra, Ghana",
+    "property_type": "apartment",
+    "bedrooms": 2,
+    "price_ghs": 420000,
+    "price": "GHS 420,000",
+    "status": "active",
+    "description": "A comfortable two-bedroom apartment with a modern interior, spacious living area and convenient access to nearby amenities. Suitable for individuals and families.",
+    "features": [
+      "2 Bedrooms",
+      "Spacious living area",
+      "Modern kitchen",
+      "Secure parking"
+    ],
+    "images": [
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/a5.jpeg",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/a8.jpeg",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/a7.jpeg",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/a6.jpeg"
+    ],
+    "bathrooms": null,
+    "area_sqft": 900,
+    "plot_dimensions": null,
+    "slug": "apartment-1",
+    "image_alts": [
+      "Modern apartment building",
+      "2-Bedroom Apartment image 2",
+      "2-Bedroom Apartment image 3",
+      "2-Bedroom Apartment image 4"
+    ],
+    "featured": true,
+    "sort_order": 1,
+    "publication_status": "published"
+  },
+  {
+    "id": "land-1",
+    "title": "Residential Plot of Land",
+    "location": "Oyibi",
+    "display_location": "Oyibi, Accra, Ghana",
+    "property_type": "land",
+    "bedrooms": null,
+    "price_ghs": 120000,
+    "price": "GHS 120,000",
+    "status": "active",
+    "description": "A residential plot suitable for individuals interested in building a private home or investing in land. Interested buyers should contact Prince B Consult for further information and property documentation.",
+    "features": [
+      "Residential land",
+      "Suitable for building",
+      "Location: Oyibi",
+      "Contact us for documentation details"
+    ],
+    "images": [
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/property-12.jpg",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/land.avif",
+      "https://jaydeladem.github.io/prince-b-realty-consult/images/property-24.jpg"
+    ],
+    "bathrooms": null,
+    "area_sqft": null,
+    "plot_dimensions": "50 × 70 ft",
+    "slug": "land-1",
+    "image_alts": [
+      "Residential land",
+      "Residential Plot of Land image 2",
+      "Residential Plot of Land image 3"
+    ],
+    "featured": true,
+    "sort_order": 2,
+    "publication_status": "published"
+  }
+]
