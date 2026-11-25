@@ -3,9 +3,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import session from 'express-session';
 import pgSession from 'connect-pg-simple';
-import { fileURLToPath } from 'node:url';
 import { ZodError } from 'zod';
-import { config } from './config/index.js';
+import { config, sessionCookieAttributes } from './config/index.js';
 import { pool } from './db/pool.js';
 import { authRouter } from './routes/auth.routes.js';
 import { propertiesRoutes } from './routes/properties.routes.js';
@@ -21,8 +20,8 @@ if (config.production) app.set('trust proxy', 1);
 app.disable('x-powered-by');
 app.use(helmet({ contentSecurityPolicy:{directives:{'img-src':["'self'", 'https:', 'data:'], 'upgrade-insecure-requests': config.production ? [] : null}}, strictTransportSecurity:config.production }));
 app.use('/api/v1', (req,res,next) => { res.set('Cache-Control','no-store'); next(); });
-// Cross-origin access is read-only. Admin UI and cookies stay on the API origin.
-app.use('/api/v1', cors({ origin: (origin,done) => done(null, !origin || config.corsOrigins.includes(origin)), methods:['GET'], credentials:false }));
+// Exact frontend origins may send credentialed admin requests; CSRF still protects every write.
+app.use('/api/v1', cors({ origin: (origin,done) => done(null, !origin || config.corsOrigins.includes(origin)), methods:['GET','POST','PATCH','DELETE','OPTIONS'], allowedHeaders:['Content-Type','X-CSRF-Token'], credentials:true, maxAge:600 }));
 app.use(express.json({ limit:'100kb' }));
 app.get('/api/v1/health', async (req,res) => {
   try { await pool.query('SELECT 1'); res.json({ status:'ok', database:'connected' }); }
@@ -32,7 +31,7 @@ const Store = pgSession(session);
 export const sessionStore = new Store({ pool, tableName:'sessions', createTableIfMissing:false });
 const sessionMiddleware = session({
   store: sessionStore, name:'wcm.sid', secret:config.secret, resave:false, saveUninitialized:false,
-  cookie:{ httpOnly:true, secure:config.production, sameSite:'strict', maxAge:8*60*60*1000 },
+  cookie:{ ...sessionCookieAttributes, maxAge:8*60*60*1000 },
 });
 app.use('/api/v1/auth', sessionMiddleware, authRouter);
 app.use('/api/v1/admin', sessionMiddleware);
@@ -46,13 +45,8 @@ app.use('/api/v1/admin/users',usersRouter);
 app.use('/api/v1/admin/logs',logsRouter);
 app.use('/api/v1/admin/media',mediaAdminRouter);
 app.use('/api/v1/media',sessionMiddleware,mediaPublicRouter);
-const adminDirectory = fileURLToPath(new URL('../../admin/', import.meta.url));
-app.get('/admin/config.js', (req,res) => {
-  res.set('Cache-Control','no-store').type('application/javascript').send(`window.WCMAdmin=window.WCMAdmin||{};WCMAdmin.siteUrl=${JSON.stringify(config.siteUrl)};`);
-});
-app.get(['/admin/login','/admin/login/'], (req,res) => res.sendFile('login.html', { root:adminDirectory }));
-app.get(['/admin','/admin/','/admin/properties','/admin/properties/','/admin/gallery','/admin/gallery/','/admin/faqs','/admin/faqs/','/admin/users','/admin/users/','/admin/logs','/admin/logs/'], (req,res) => res.sendFile('index.html', { root:adminDirectory }));
-app.use('/admin', express.static(adminDirectory, { index:false }));
+// The admin UI is deployed separately on GitHub Pages, not served from this repo.
+app.get('/', (req,res) => res.json({ service:'Prince B WCM API', health:'/api/v1/health', admin:new URL('admin/index.html',config.siteUrl).href }));
 app.use((req,res) => res.status(404).json({ error:'Endpoint not found.' }));
 app.use((error,req,res,next) => {
   if(error.name==='MulterError')return res.status(400).json({error:error.code==='LIMIT_FILE_SIZE'?'Each image must be 5 MB or smaller.':'Choose one image per upload, with no extra form fields.'});

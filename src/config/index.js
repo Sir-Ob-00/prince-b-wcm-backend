@@ -14,3 +14,10 @@ if (site.protocol !== 'https:' && !(site.protocol === 'http:' && ['127.0.0.1','l
 if(!config.apiUrl)throw new Error('Set PUBLIC_API_URL to the HTTPS origin of the WCM service.');
 const api=new URL(config.apiUrl);
 if(api.pathname!=='/'||api.search||api.hash||api.username||api.password||(api.protocol!=='https:'&&!(api.protocol==='http:'&&!config.production&&['127.0.0.1','localhost'].includes(api.hostname))))throw new Error('PUBLIC_API_URL must be an HTTPS origin (HTTP loopback is allowed locally), without a path or credentials.');
+
+// Production admin is cross-site (GitHub Pages -> Render). Keep sessions server-side.
+export const sessionCookieAttributes = {
+  path: '/', httpOnly: true, secure: config.production,
+  sameSite: config.production ? 'none' : 'strict',
+  partitioned: config.production,
+};
